@@ -1,2 +1,10 @@
-# team-learning-nlp
-this is June's learning notes about EasyTransfer
+# NLP实践-中文预训练模型泛化能力挑战赛（文本分类，bert）专题
+
+## Day1 2021年02月18日
+安装docker,注册阿里云容器镜像服务
+
+**问题
+
+**解决方法
+
+**思考
