@@ -1,10 +1,11 @@
 # NLP实践-中文预训练模型泛化能力挑战赛（文本分类，bert）专题 学习笔记
 
-![avatar](/image/env-flow.png)
+![avatar](/image/env-flow.png?raw=true)
 
 - [Docker 安装与使用](#docker------)
 - [阿里云开通镜像仓库](#---------)
 - [获取baseline](#--baseline)
+- [配置代码环境](#------)
 - [本机运行并提交](#-------)
 
 > 配置
@@ -22,7 +23,7 @@
 
 在Windows安装时，注意可能需要安装WSL2更新。
 
-![avatar](/image/wsl2.png)
+![avatar](/image/wsl2.png?raw=true)
 
 如果出现提示，可以点进链接按照步骤操作：
 
@@ -38,18 +39,18 @@ https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-4---download-the
 参考教程：https://tianchi.aliyun.com/competition/entrance/231759/tab/226  
 这个讲的挺详细了，在创建完自己的镜像仓库以后，再登陆进来，记得需要选一下地址才能看到：
 
-![avatar](/image/alicould.png)
+![avatar](/image/alicould.png?raw=true)
 
 点进去以后，可以看到下面有一些自己镜像仓库常用的命令，比如登录，推送等。如果是在windows里使用，把命令前的sudo去掉就行了
 
-![avatar](/image/aliregistry.png)
+![avatar](/image/aliregistry.png?raw=true)
 
 ## 获取baseline
 
 来源地址：https://github.com/finlay-liu/tianchi-multi-task-nlp
 
 在本地安装git，把这个库里的代码clone下来。这里附上一个之前总结的git bash常用使用命令流程
-![avatar](/image/git-flow.png)
+![avatar](/image/git-flow.png?raw=true)
 
 ## 配置代码环境
 
@@ -61,7 +62,7 @@ https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-4---download-the
 
 我在运行的过程中遇到了 CUDA out of memory的错误。
 
-![avatar](/image/batchsize.png)
+![avatar](/image/batchsize.png?raw=true)
 
 可以把执行train函数里的参数 batch_size 调小一点。同时，如果电脑配置不高，希望快点出结果的话，可以把epoch调少一点，比如1或者2。 
 
@@ -71,10 +72,10 @@ train(epochs=2, batchSize=6, device='cuda:0', load_saved=True ,a_step=16, lr=0.0
 
 在运行的过程中，因为我把batchsize改小了，出现了一个bug：
 
-![avatar](/image/cur_error.png)
+![avatar](/image/cur_error.png?raw=true)
 
 去仔细看了下代码，出现bug这个原因是为什么呢？在get_next_batch()函数里面， 当总剩余数据量>0时，只分别给出了几个分数据集剩余数据量>0的情况，没有考虑到分数据集剩余数据量=0的情况。所以当总数据集长度不为0，但某个数据集长度已经为0的情况下，tnews_cur就没有在引用前被定义，就会报错。
-![avatar](/image/curfuc_raw.png)
+![avatar](/image/curfuc_raw.png?raw=true)
 
 这里附上修改后的elif部分的逻辑判断，改完以后，就可以正常运行了
 
@@ -107,16 +108,16 @@ elif total_len > batchSize:
 一些概念理解：
 把所有样本都跑一遍，就叫完成一期训练，是一个epoch。batch size是一次训练所抓取的数据样本数量。在这个项目中，我们三个数据集总数据量大概为143443条数据，如果设置batch size=4, 则一共要跑143443/4=35860个batch。那么我们一个epoch结束，看打印出来的batch数量就差不多是35000 th了。
 
-![avatar](/image/batch_num.png)
+![avatar](/image/batch_num.png?raw=true)
 
 最后生成结果以后，需要在文件夹里打包一下几个结果json文件。按照比赛提交要求命名。
 
-![avatar](/image/submission.png)
+![avatar](/image/submission.png?raw=true)
 
 在PowerShell 或者 CMD命令窗口中，将目录切换到当前submission目录下，按照basline里面的说明，登录阿里云镜像仓库（把阿里云镜像仓库的网页打开，里面会用到的命令），构建镜像，提交（tag和push）镜像到远端。注意版本号是自己取，1.0 2.0之类的。
 
-![avatar](/image/push.png)
+![avatar](/image/push.png?raw=true)
 
 最后在比赛提交页面，填写镜像路径+版本号，以及用户名和密码。稍微等一会就可以看成绩啦。
 
-![avatar](/image/score.png)
+![avatar](/image/score.png?raw=true)
