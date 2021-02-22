@@ -12,7 +12,7 @@
 >
 > - 操作系统：windows10家庭中文版  
 > - 显卡：NVIDIA GeForce GTX 1060  
-> - 环境：pytorch1.6.1（GPU版）+ CUDA10.2 + VSCode + windows版Docker
+> - 环境：pytorch1.6.0（GPU版）+ CUDA10.2 + VSCode + windows版Docker
 >
 
 ## Docker 安装与使用
