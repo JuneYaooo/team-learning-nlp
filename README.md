@@ -121,3 +121,33 @@ elif total_len > batchSize:
 最后在比赛提交页面，填写镜像路径+版本号，以及用户名和密码。稍微等一会就可以看成绩啦。
 
 ![avatar](/image/score.png?raw=true)
+
+## 模型提升
+
+本机配置太差，batchsize不能超过6，最开始效果一直不好。提升了一点，主要是增大了a_step参数。
+
+![avatar](/image/improve.png?raw=true)
+
+## 其他
+
+### 服务器运行踩坑
+
+因为本机配置不够高，去租了服务器，涉及到一些Linux文件运行问题，特记录一下：
+
+1.文件传输
+
+可以用Xftp,官网有个人版/学生版 是免费使用的，非常方便，可以去官网下载
+
+2.在Linux下执行python脚本文件
+
+参阅：https://blog.csdn.net/qq_28267025/article/details/60337293
+
+如果出现类似于这种报错:
+
+```python
+/usr/bin/env: ‘python3\r’: No such file or directory
+```
+
+可以参阅这篇解答：
+
+https://askubuntu.com/questions/896860/usr-bin-env-python3-r-no-such-file-or-directory
